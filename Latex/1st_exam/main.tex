@@ -1,0 +1,74 @@
+\documentclass[oneside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage[spanish]{babel}
+\usepackage[document]{ragged2e}
+\usepackage{lastpage}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\usepackage{amssymb}
+\usepackage{mathrsfs, amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{tcolorbox}
+\usepackage{cancel}
+\usepackage{siunitx}
+\usepackage{nccmath}
+\usepackage{hyperref,lipsum}
+\usepackage{ragged2e}
+\usepackage{fullpage}
+
+\lstset{
+    language=R,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{red},
+    commentstyle=\color{gray},
+    showstringspaces=false,
+    breaklines=true,
+    backgroundcolor=\color{lightgray}, % <<< fundo cinza
+    frame=single,                      % <<< borda ao redor
+    literate={_}{{\_}}1                % <<< tratar "_" normalmente
+}
+
+
+
+
+\setlength{\headheight}{12.0pt} % Set the headheight to at least 12.0pt
+\addtolength{\topmargin}{-12.0pt} % Adjust topmargin to compensate
+
+\pagestyle{fancy}
+\fancyhf{}
+\newcommand{\Lagr}{\mathcal{L}}
+\lhead[Head 1]{P1 de Astroestatística}
+\rhead[Head 2]{Iago Lopes}
+\rfoot[Página \thepage]{Página \thepage}
+\begin{document}
+\input{Portada}
+\input{Pergunta 1}
+\newpage
+\input{Pergunta 2}
+\newpage
+\input{Pergunta 3}
+\newpage
+\input{Pergunta 4}
+\newpage
+\input{Pergunta 5}
+\newpage
+\input{Pergunta 6}
+\newpage
+\input{Pergunta 7}
+\newpage
+\input{Pergunta 8}
+\newpage
+\input{Pergunta 9}
+\newpage
+\input{Pergunta 10}
+\newpage
+
+
+
+\end{document}

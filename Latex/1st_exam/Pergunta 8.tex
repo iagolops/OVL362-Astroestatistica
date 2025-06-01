@@ -1,0 +1,42 @@
+{$\space$\par}
+\vspace{0.5cm}
+\justifying
+\section*{{\bfseries \LARGE Questão 8 -} {\bfseries \large  Usando uma abordagem paramétrica e outra não paramétrica, calcule o coeficiente de correlação entre o desvio para o vermelho e a magnitude V, para as galáxias Seyfert 1 (SY1)? Qual a abordagem mais correta a ser considerada? Existe alguma base física para a relação encontrada?}}
+
+\vspace{0.8cm}
+
+\textcolor{red}{A abordagem não-paramétrica geralmente é a mais adequada, pois não depende de conhecimentos prévios dos dados. Porém, como veremos na questão 10, não pode-se rejeitar a hipótese de que o redshift e a magnitude seguem uma distribuição Gaussiana e como o teste de Pearson assume Gaussianidade nas variáveis, então podemos usá-lo. Todavia, há poucos objetos na amostra e isso faz com que os testes falhem, incluindo o de Gaussianidade. Logo, eu considero mais correto utilizar o teste não-paramétrico.}
+\vspace{0.4cm}
+
+\begin{lstlisting}
+    cor.test(sy1$z, sy1$Vmag, method='pearson')
+    cor.test(sy1$z, sy1$Vmag, method='spearman')
+\end{lstlisting}
+
+\begin{lstlisting}
+        Pearson product-moment correlation
+    
+    data:  sy1$z and sy1$Vmag
+    t = 0.92786, df = 5, p-value = 0.3961
+    alternative hypothesis: true correlation is not equal to 0
+    95 percent confidence interval:
+     -0.5198244  0.8818138
+    sample estimates:
+          cor 
+    0.3832664 
+\end{lstlisting}
+
+\begin{lstlisting}
+        Spearman rank correlation rho
+    
+    data:  sy1$z and sy1$Vmag
+    S = 36.828, p-value = 0.4523
+    alternative hypothesis: true rho is not equal to 0
+    sample estimates:
+          rho 
+    0.3423562 
+\end{lstlisting}
+
+\vspace{0.4cm}
+
+\textcolor{red}{Desses valores, não podemos rejeitar a hipótese nula de que não existe correlação ($\rho=0$). Existe sim uma relação física entre a magnitude e o redshift, pois com diferentes redshifts, teremos diferentes partes do espectro na banda V. Todavia, essa relação não é linear, já que o fluxo em diferentes partes do espectro de uma galáxia pode aumentar ou diminuir. Assim, é de se esperar que não tenha uma correlação entre as duas quantidades físicas. Por fim, devemos nos lembrar que há poucos dados e isso limita nosso poder de afirmações.}

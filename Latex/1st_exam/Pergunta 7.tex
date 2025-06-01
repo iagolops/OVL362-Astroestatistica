@@ -1,0 +1,43 @@
+{$\space$\par}
+\vspace{0.5cm}
+\justifying
+\section*{{\bfseries \LARGE Questão 7 -} {\bfseries \large Teste a hipótese de que a distribuição de desvios para o vermelho é similar para os quasares (QSO) e blazares (BLZ). Use argumentos suficientes para justificar o(s) teste(s) escolhido(s)..
+}}
+
+\vspace{0.8cm}
+
+\textcolor{red}{Para comparar as distribuições, podemos utilizar dois tipos de testes, paramétricos e não-paramétricos. Testes não-paramétricos são mais robustos e irei dar mais preferência a eles.}
+
+\textcolor{red}{Nessa análise, escolhi usar o teste de  Cramér-von Mises que baseia-se na distância entre a CDF das duas amostras. Apesar de haver o teste de Anderson-Darling e de Kolmogorov-Smirnov, decidi que o teste de Cramér-von Mises seria mais adequado por dois motivos:}
+\textcolor{red}{
+\begin{enumerate}
+    \item Anderson-Darling dá mais peso para as pontas da distribuição, mas como temos poucos dados, não acho que seja uma boa ideia, pois a presença de um outlier faria muita diferença. Além disso, há muita incerteza em altos redshifts e também deve ser considerado.
+    \item O teste de Cramér-von Mises possui um melhor desempenho quando comparado ao teste de Kolmogorov-Smirnov, pois ele leva em conta todos os valores ao estimar a diferença das CDFs.
+\end{enumerate}}
+
+\textcolor{red}{Outro teste escolhido foi o de Mann-Whitney-Wilcoxon, pois este baseia-se na soma de ranks das duas amostras. O motivo de sua escolha é que é um teste sólido na presença de outliers. Por fim, usei 2 testes paramétricos, um para a variância e outro para a média. Com isso, temos testes para diversas propriedades dos dados.}
+
+\vspace{0.3cm}
+
+\begin{lstlisting}
+    qso = data[data$Type=='QSO',]
+    blz = data[data$Type=='BLZ',]
+    sy1 = data[data$Type=='SY1',]
+    
+    qso_z = na.omit(qso$z)
+    blz_z = na.omit(blz$z)
+    sy1_z = na.omit(sy1$z)
+
+    # Non-parametric tests
+    cvm = cvmts.test(qso_z, blz_z)
+    cat('p-value from CVM test: ',cvmts.pval(cvm, length(qso_z), length(blz_z)))
+    wilcox.test(qso_z,blz_z)
+
+    # Parametric tests
+    t.test(qso_z, blz_z)
+    var.test(qso_z, blz_z)
+\end{lstlisting}
+
+\vspace{0.3cm}
+
+\textcolor{red}{O valor p para o testes foram 0.2772023, 0.3664, 0.3668, 0.1654 para Cramér-von Mises, Wilcoxon, t-test, F test, respectivamente. Logo, não podemos afirmar nada sobre as semelhanças e diferenças entre as distribuições de redshift.}

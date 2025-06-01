@@ -1,0 +1,59 @@
+{$\space$\par}
+\vspace{0.5cm}
+\justifying
+\section*{{\bfseries \LARGE Questão 9 -} {\bfseries \large Use 1000 sorteios de bootstrap para definir o intervalo de confiança de 97.5\% para o valor da mediana da distribuição de desvio para o vermelho (z) da amostra de quasares (QSO) e da amostra de Blazares (BLZ).
+}}
+
+\vspace{0.8cm}
+
+\textcolor{red}{A técnica de bootstrap é baseada em amostragem com repetição. Dado um número de sorteios, cada sorteio seleciona N objetos dos dados com repetição e então estima a quantidade desejada para cada sorteio. No fim, obtém-se o uma distribuição da quantidade, onde tira-se o intervalo de confiança.}
+
+\vspace{0.4cm}
+
+\begin{lstlisting}
+    theta = function(x,i){
+      median(x[i])
+    }
+    qso_boot = boot(qso_z, statistic=theta, R=1000)
+    boot.ci(qso_boot, conf=0.975)
+\end{lstlisting}
+
+\begin{lstlisting}
+    BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+    Based on 1000 bootstrap replicates
+    
+    CALL : 
+    boot.ci(boot.out = qso_boot, conf = 0.975)
+    
+    Intervals : 
+    Level      Normal              Basic         
+    97.5%   ( 0.1124,  0.4421 )   ( 0.0763,  0.4080 )  
+    
+    Level     Percentile            BCa          
+    97.5%   ( 0.1770,  0.5087 )   ( 0.1710,  0.4860 ) 
+\end{lstlisting}
+
+
+\begin{lstlisting} 
+    blz_boot = boot(blz_z, statistic=theta, R=1000)
+    boot.ci(blz_boot, conf=0.975)
+\end{lstlisting}
+
+\begin{lstlisting}
+    BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+    Based on 1000 bootstrap replicates
+    
+    CALL : 
+    boot.ci(boot.out = blz_boot, conf = 0.975)
+    
+    Intervals : 
+    Level      Normal              Basic         
+    97.5%   ( 0.0370,  0.7308 )   ( 0.0640,  0.6638 )  
+    
+    Level     Percentile            BCa          
+    97.5%   ( 0.0562,  0.6560 )   ( 0.0461,  0.5950 ) 
+\end{lstlisting}
+
+\vspace{0.4cm}
+
+\textcolor{red}{Levando o resultado do "Basic", temos que o intervalo de confiança da mediana quasares é menor do que para os blazares. Possivelmente isso é devido ao menor número de dados na amostra de blazares. }

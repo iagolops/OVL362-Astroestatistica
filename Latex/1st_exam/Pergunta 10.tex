@@ -1,0 +1,106 @@
+{$\space$\par}
+\vspace{0.5cm}
+\justifying
+\section*{{\bfseries \LARGE Questão 10 -} {\bfseries \large  As distribuições de z e Vmag de cada classe (Type) podem ser consideradas gaussianas? Justifique sua resposta com mais de um teste/análise.}}
+
+\vspace{0.8cm}
+
+
+\begin{lstlisting}
+    for (tip in c('QSO', 'SY1', 'BLZ')) {
+      subset = data[data$Type == tip, ]
+      z = na.omit(subset$z)
+      v = na.omit(subset$Vmag)
+      cat('Starting', tip, 'type\n\n')
+    
+    # Redshift
+      if (length(z) > 7) {
+      ad_z = ad.test(z)
+      cvm_z = cvm.test(z)
+      cat('p-value from AD test for redshift in',tip,':',ad_z$p.value,'\n')
+      cat('p-value from CVM test for redshift in',tip,':',cvm_z$p.value,'\n')
+      }
+    
+      dip = dip.test(z)
+      shapiro = shapiro.test(z)
+      lillie = lillie.test(z)
+      cat('p-value from dip test for redshift in',tip,':',dip$p.value,'\n')
+      cat('p-value from Shapiro test for redshift in',tip,':',shapiro$p.value,'\n')
+      cat('p-value from Lillie test for redshift in',tip,':',lillie$p.value,'\n','\n')
+    
+    # V mag
+    
+      if (length(v) > 7) {
+        ad_v = ad.test(v)
+        cvm_v = cvm.test(v)
+        cat('p-value from AD test for Vmag in', tip, ':', ad_v$p.value, '\n')
+        cat('p-value from CVM test for Vmag in', tip, ':', cvm_v$p.value, '\n')
+      }
+    
+      dip = dip.test(v)
+      shapiro = shapiro.test(v)
+      lillie = lillie.test(v)
+      cat('p-value from dip test for Vmag in', tip, ':', dip$p.value, '\n')
+      cat('p-value from Shapiro test for Vmag in', tip, ':', shapiro$p.value, '\n')
+      cat('p-value from Lillie test for Vmag in', tip, ':', lillie$p.value, '\n', '\n')
+      cat('###########################################################\n\n')
+    }
+\end{lstlisting}
+
+\newpage
+
+
+\begin{lstlisting}
+    Starting QSO type
+    
+    p-value from AD test for redshift in QSO : 7.681129e-09 
+    p-value from CVM test for redshift in QSO : 1.121454e-07 
+    p-value from dip test for redshift in QSO : 0.9870413 
+    p-value from Shapiro test for redshift in QSO : 1.547669e-06 
+    p-value from Lillie test for redshift in QSO : 1.573389e-05 
+     
+    p-value from AD test for Vmag in QSO : 0.03655097 
+    p-value from CVM test for Vmag in QSO : 0.05203636 
+    p-value from dip test for Vmag in QSO : 0.4685278 
+    p-value from Shapiro test for Vmag in QSO : 0.03447447 
+    p-value from Lillie test for Vmag in QSO : 0.06412205 
+     
+    ###########################################################
+    
+    Starting SY1 type
+    
+
+    p-value from dip test for redshift in SY1 : 0.1182018 
+    p-value from Shapiro test for redshift in SY1 : 0.4400546 
+    p-value from Lillie test for redshift in SY1 : 0.6378789 
+
+    p-value from dip test for Vmag in SY1 : 0.9351645 
+    p-value from Shapiro test for Vmag in SY1 : 0.2234065 
+    p-value from Lillie test for Vmag in SY1 : 0.2478134 
+     
+    ###########################################################
+    
+    Starting BLZ type
+    
+    p-value from AD test for redshift in BLZ : 0.006366748 
+    p-value from CVM test for redshift in BLZ : 0.01736082 
+    p-value from dip test for redshift in BLZ : 0.7571165 
+    p-value from Shapiro test for redshift in BLZ : 0.003163003 
+    p-value from Lillie test for redshift in BLZ : 0.08508485 
+     
+    p-value from AD test for Vmag in BLZ : 0.06981848 
+    p-value from CVM test for Vmag in BLZ : 0.06846265 
+    p-value from dip test for Vmag in BLZ : 0.9826913 
+    p-value from Shapiro test for Vmag in BLZ : 0.1373625 
+    p-value from Lillie test for Vmag in BLZ : 0.119869 
+     
+    ###########################################################
+\end{lstlisting}
+
+\vspace{0.4cm}
+
+\textcolor{red}{Da análise de quasares, pode-se dizer que temos evidência para confirmar que as distribuições de redshift e de magnitude V \textbf{não} seguem uma normal. Apesar do p valor alto em alguns testes, como o dip, estou considerando as diversas características de uma distribuição normal, por isso faço tal afirmação.}
+
+\textcolor{red}{Da análise de Seyfert 1, pode-se dizer que não há evidência para confirmar a refutar a hipótese nula de que as distribuições redshift e da magnitude V seguem uma normal.}
+
+\textcolor{red}{Da análise de blazares, pode-se dizer que temos evidência para confirmar que as distribuições de redshift não segue uma normal. Para a magnitude V, não temos evidência para refutar a hipótese nula.}

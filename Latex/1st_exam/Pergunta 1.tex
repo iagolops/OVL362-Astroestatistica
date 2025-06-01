@@ -1,0 +1,52 @@
+{$\space$\par}
+\vspace{0.5cm}
+\justifying
+\section*{{\bfseries \LARGE Questão 1 -} {\bfseries \large   O diâmetro de um asteroide do cinturão principal foi medido por técnicas de ocultação de estrelas. As observações de vários astrônomos forneceram as seguintes medidas de diâmetro em km: 320, 315, 327, 313, 318, 319, 330, 317, 328, 332.
+\begin{enumerate}[label=\alph*)]
+  \item Estime qual é o diâmetro desse asteroide com um intervalo de confiança de 97.5\%.
+  \item Estime o intervalo de confiança de 95\% para a variância das medidas do diâmetro, sabendo que esse intervalo segue a fórmula:
+$$
+\frac{(n-1)S_X^2}{\chi^2_{\alpha/2}} < \sigma^2 < \frac{(n-1)S_X^2}{\chi^2_{1 - \alpha/2}}
+$$
+\textcolor{red}{Essa formula não está correta. Olhando no slide 19 do cap 2, vemos que a ordem está invertida e deveria ser:}
+$$
+\frac{(n-1)S_X^2}{\chi^2_{\alpha/2}} > \sigma^2 > \frac{(n-1)S_X^2}{\chi^2_{1 - \alpha/2}}
+$$
+\end{enumerate}
+}}
+
+\vspace{0.8cm}
+
+\textcolor{red}{Para estimar o tamanho desse asteroide com base em todas essas medidas, usarei o test de t-student nos dados, pois esse teste é adequado para a média de poucos dados. O teste resultou no intervalo de (316.18, 327.62) para o diâmetro do asteroide}
+
+\vspace{0.4cm}
+
+\begin{lstlisting}
+    d = c(320, 315, 327, 313, 318, 319, 330, 317, 328, 332)
+    t.test(d, conf.level = 0.975)
+\end{lstlisting}
+
+\vspace{0.4cm}
+
+\textcolor{red}{Seguindo a fórmula fornecida, estimei o intervalo de 95\% para a variância amostral:}
+
+\vspace{0.4cm}
+
+\begin{lstlisting}
+    alpha = 0.05
+    n = length(d)
+    s_x = var(d)
+    x2_1 = qchisq(1-(alpha/2), df = n-1)
+    x2_2 = qchisq(alpha/2, df = n-1)
+    
+    lower_interval = (n-1)*s_x/x2_1
+    upper_interval = (n-1)*s_x/x2_2
+    
+    cat('Variance estimated:', s_x, '\nLower interval:', lower_interval,'\nUpper interval:', upper_interval)
+\end{lstlisting}
+
+\begin{lstlisting}
+    Variance estimated: 45.43333 
+    Lower interval: 21.49529 
+    Upper interval: 151.4226
+\end{lstlisting}

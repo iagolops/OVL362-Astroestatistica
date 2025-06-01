@@ -1,0 +1,31 @@
+{$\space$\par}
+\vspace{0.5cm}
+\justifying
+\section*{{\bfseries \LARGE Questão 3 -} {\bfseries \large  Um determinado modelo de formação estelar prevê que cerca de 38\% das estrelas de um aglomerado globular devem ser binárias. Seu colaborador estudou 568 estrelas de um aglomerado globular e encontrou que 200 delas devem ser binárias. Com base nesses dados, você pode refutar o modelo mencionado acima?}}
+
+\vspace{0.8cm}
+
+\textcolor{red}{Para isso, precisamos utilizar um teste de hipótese baseado em proporções, que é o mais adequado ao problema:}
+
+\vspace{0.4cm}
+
+\begin{lstlisting}
+    prop.test(200, n = 568, p=0.38)
+\end{lstlisting}
+
+\begin{lstlisting}
+    	1-sample proportions test with continuity correction
+    
+    data:  200 out of 568, null probability 0.38
+    X-squared = 1.7584, df = 1, p-value = 0.1848
+    alternative hypothesis: true p is not equal to 0.38
+    95 percent confidence interval:
+     0.3130942 0.3931624
+    sample estimates:
+            p 
+    0.3521127 
+\end{lstlisting}
+
+\vspace{0.4cm}
+
+\textcolor{red}{De acordo com o teste de proporções, não podemos refutar o modelo mencionado, pois seu p-valor é de $0.38$ e nessa análise estamos considerando como evidência forte valores p menores do que $0.05$.}
