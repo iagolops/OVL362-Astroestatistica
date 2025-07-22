@@ -24,11 +24,13 @@ The materials in this repository include my submitted versions of the exams (pri
 
 > ⚠️ **Note**: These files reflect my uncorrected submissions. They may contain errors or incomplete reasoning.
 
+```text
+.
 ├── Latex/
-│   ├── 1st_exam/             -> My folder for LaTeX sources of the 1st exam
-│   ├── 2nd_exam/             -> My folder for LaTeX sources of the 2nd exam
-│   ├── P1_Astroest.pdf       -> My 1st exam in PDF format
-│   └── P2_Astroest.pdf       -> My 2nd exam in PDF format
+│   ├── 1st_exam/               -> My folder for LaTeX sources of the 1st exam
+│   ├── 2nd_exam/               -> My folder for LaTeX sources of the 2nd exam
+│   ├── P1_Astroest.pdf         -> My 1st exam in PDF format
+│   └── P2_Astroest.pdf         -> My 2nd exam in PDF format
 ├── Notebooks/
 │   ├── Iago_Lopes_Prova_1.ipynb -> Notebook used for the 1st exam
 │   └── Iago_Lopes_Prova_2.ipynb -> Notebook used for the 2nd exam
