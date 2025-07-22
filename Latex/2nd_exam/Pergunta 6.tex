@@ -1,0 +1,73 @@
+{$\space$\par}
+\vspace{0.5cm}
+\justifying
+\section*{{\bfseries \LARGE Questão 6 -} {\bfseries \large Transforme as cores em magnitudes U, B, R e I, e junte essas magnitudes à V em uma nova dataframe. Aplique a técnica de componentes principais nesta dataframe formada apenas por magnitudes aparentes.}}
+
+\vspace{0.3cm}
+
+\begin{enumerate}
+    \item Quantas componentes principais poderiam explicar apropriadamente a distribuição das estrelas nesse espaço de magnitudes?
+        
+    \item Interprete. O que deve significar fisicamente os dois primeiros componentes principais?
+
+    \item Quais seriam as magnitudes de uma estrela hipotética que pudesse ser representada no espaço de componentes principais pelas coordenadas (0.2, 0.43, 0.6, 0.8, 0.4)?
+\end{enumerate}
+\vspace{0.8cm}
+
+\textcolor{red}{O método de PCA rotaciona o espaço dos parâmetros de maneira que os primeiros eixos sejam aqueles onde há maior variância dos dados. Esse método é muito útil para reduzir a dimensionalidade do problema ao assumir que as componentes de menor variância são ruídos.}
+
+\vspace{0.4cm}
+
+\begin{lstlisting}
+    catalog = read.table('/content/king5.tsv', sep='|', header=T)
+
+    # Estimating magnitude
+    Bmag = catalog$BV+catalog$Vmag
+    Umag = catalog$UB+Bmag
+    Rmag = -(catalog$VR-catalog$Vmag)
+    Imag = -(catalog$VI-catalog$Vmag)
+    
+    new_df = data.frame(Umag = Umag, Bmag = Bmag, Vmag = catalog$Vmag, Rmag = Rmag,
+     Imag = Imag
+    )
+    new_df = new_df[complete.cases(new_df),]
+    
+    # PCA
+    pca = prcomp(new_df)
+    summary(pca)
+    
+    ### output ### 
+    Importance of components:
+                              PC1     PC2     PC3     PC4     PC5
+    Standard deviation     2.7876 0.42396 0.17145 0.04079 0.03337
+    Proportion of Variance 0.9735 0.02252 0.00368 0.00021 0.00014
+    Cumulative Proportion  0.9735 0.99597 0.99965 0.99986 1.00000
+\end{lstlisting}
+
+\textcolor{red}{a) Vemos que as duas primeira componentes já conseguem explicar mais de $99.5\%$ da variância, portanto eu diria que duas componentes principais já são suficientes para explicar os dados.}
+
+
+\begin{lstlisting}
+    par(mfrow=c(2,1))
+    barplot(pca$rotation[,1]) # Brilho
+    barplot(pca$rotation[,2]) # Cor
+\end{lstlisting}
+
+\textcolor{red}{b) Para interpretar, decidi fazer um gráfico de barras das componentes e percebi que a primeira componente está relacionada simplesmente com a magnitude das estrelas, ou seja, o brilho aparente delas. Já para a segunda componente, notei que as banda U e I estão com maior peso, logo imagino que essa componente está buscando explicar as cores das estrelas, ou seja, suas temperaturas efetivas, pois se a T$_{eff}$ é baixa, então emitirá mais em comprimentos de onda maiores, enquanto que para T$_{eff}$ alta, temos maior emissão em comprimentos de onda menores.}
+
+
+\textcolor{red}{c) Para computar as magnitudes nesse espaço, basta utilizar os coeficientes, ou seja, aplicar a transposta da matriz no vetor do espaço do PCA.}
+
+\begin{lstlisting}
+    pca_vector = c(0.2, 0.43, 0.6, 0.8, 0.4)
+    mags = c()
+    for (i in c(1:5)){
+      mag = sum(pca$rotation[i,] * pca_vector) + mean(new_df[,i])
+      mags = c(mags,mag)
+    }
+    cat('Magnitudes (U,B,V,R,I): ',mags)
+
+    ### output ###
+    Magnitudes (U,B,V,R,I):  19.74012 17.93687 17.82269 16.01448 16.04089
+\end{lstlisting}
+
