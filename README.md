@@ -1,4 +1,4 @@
-# OVL362 - Astrostatistics Exams
+# OVL362 - Astrostatistics
 
 This repository contains all of my exams from the **OVL362 - Astrostatistics** course, offered by the [Observatório do Valongo (UFRJ)](http://www.ov.ufrj.br/). The course was taught by Professor **Helio Jaques Rocha-Pinto** using **R** as our tool for analysis.
 
